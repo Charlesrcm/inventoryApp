@@ -12,10 +12,11 @@ export default class Crayon{
 
   constructor(
     private _marque?: string,
-    private _type?: string,
     private _quantite?: number,
   ) {}
 
+
+  //fonction d'affichage des crayons
   async getCrayons(){
     const crayons = await fetch("http://localhost:3000/crayons",{
       method: "GET",
@@ -56,33 +57,19 @@ export default class Crayon{
       )
     }
   }
-  
-  
-  // fonction de suppression d'un crayon
-  async modifCrayon(){
-    const idCrayon = document.querySelector('.crayon');
-    if(idCrayon){
-      const getCrayon = await fetch("http://localhost:3000/crayons/" + idCrayon.id,{
-        method: "GET",
-        body: JSON.stringify(idCrayon)
-      });
-      await fetch("http://localhost:3000/crayons/" + idCrayon.id,{
-        method: "PATCH",
-        body: JSON.stringify(getCrayon)
-      }).then(()=>{
-        window.alert("Crayon modifié");
-        window.location.reload();
-      })
-    }
-  }
 
+  /**
+   * 
+   * @param title titre que va afficher l'alerte
+   * @param firstLaunch si on affiche la 2ème alerte ou non
+   * @param modification Si il s'agit d'une modification
+   * @param id Si il s'agit d'une modification alors il nous faut l'id
+   */
   async promptCrayon(title = "Ajouter un crayon", firstLaunch = true, modification = false, id?: any){
-    console.log(title,firstLaunch,modification,id);
     
     const alert = document.createElement('ion-alert') as any;
     alert.header = title;
     alert.mode = "ios";
-
     
     if(firstLaunch){
       alert.inputs = [
@@ -108,9 +95,9 @@ export default class Crayon{
           }
         }
       ];
-    } else {
-      console.log(title,firstLaunch,modification,id);
-      
+
+    } else {   
+
       alert.inputs = Crayon.crayonType.map(type => ({
         type: 'radio',
         value: type,
@@ -120,6 +107,7 @@ export default class Crayon{
         {
           text: 'Go !',
           handler: (type: any) => {
+            
             // si on est pas dans la modification alors on ajoute un crayon sinon on le modifie
             if(!modification){
               let result = {
@@ -140,6 +128,7 @@ export default class Crayon{
                 window.alert('Le crayon a bien été créé');
                 window.location.reload();
               })
+
             } else {
               // gestion de la modification du crayon
               let result = {

@@ -9,20 +9,25 @@ async function onDeviceReady(){
   await newCrayon.getCrayons();
   
   
-  // fonction de status de la batterie avec plugin cordova
+  // fonction de status de la batterie avec le plugin cordova
   window.addEventListener("batterystatus", onBatteryStatus, false);
   function onBatteryStatus(status){
     const battery = document.querySelector('#battery');
     battery.innerHTML = `<ion-icon name="battery-half-outline"></ion-icon>` + status.level + `%`;
   }
 
+  /**
+   * variable pour la modification, suppression et ajout d'un crayon
+   */
   const btnSupprimer = document.querySelectorAll('.supprimer');
  
-  const btnModification = document.querySelectorAll('.modifier');
-  
+  const btnModification = document.querySelectorAll('.modifier');  
 
   const btnCreateCrayon = document.querySelector('#addCrayon');
-    
+
+  /**
+   * variables des 3 pages à afficher et leur boutons dans le menu
+   */
   const btnAccueil = document.querySelector('.accueil');
   const btnAjoutCrayon = document.querySelector('.ajout-crayon');
   const btnListe = document.querySelector('.liste-crayon');
@@ -63,7 +68,7 @@ async function onDeviceReady(){
   })
   
 
-  //écouteur si on veut supprimer le crayon
+  // écouteur si on veut supprimer le crayon
   btnSupprimer.forEach(supprime=>{
     supprime.addEventListener('click', ()=>{
       newCrayon.deleteCrayon();
@@ -76,6 +81,8 @@ async function onDeviceReady(){
     newCrayon.promptCrayon();
   })
 
+
+  // si on veut modifier un crayon
   btnModification.forEach(modification=>{
     modification.addEventListener('click', ()=>{
       const id = (modification as HTMLElement).dataset.id;
