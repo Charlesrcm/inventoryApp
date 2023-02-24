@@ -1,0 +1,22 @@
+{
+  "crayons": [
+    {
+      "marque": "bic",
+      "type": "bois",
+      "quantite": "4",
+      "id": 1
+    },
+    {
+      "marque": "bic",
+      "type": "couleur",
+      "quantite": "89",
+      "id": 2
+    },
+    {
+      "marque": "bic",
+      "type": "feutre",
+      "quantite": "87",
+      "id": 3
+    }
+  ]
+}
